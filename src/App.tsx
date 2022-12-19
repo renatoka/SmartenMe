@@ -1,16 +1,17 @@
 import { Configuration, OpenAIApi } from "openai";
 import { useState } from "react";
 import ReactMarkdown from 'react-markdown';
-
-const configuration = new Configuration({
-  apiKey: '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'
-});
-const openai = new OpenAIApi(configuration);
+import Alert from '@mui/material/Alert';
 
 function App() {
 
+  const configuration = new Configuration({
+    apiKey: import.meta.env.VITE_OPENAI_KEY as string,
+  });
+  const openai = new OpenAIApi(configuration);
+
   const [inputSentence, setInputSentence] = useState("");
-  const [outputSentence, setOutputSentence] = useState("HEY");
+  const [outputSentence, setOutputSentence] = useState("");
   const [error, setError] = useState<Error | null>(null);
 
   const copyToClipboard = async (str: string) => {
@@ -43,22 +44,22 @@ function App() {
   return (
     <div className="App h-screen bg-[#202532]">
       <div className="container mx-auto flex flex-col items-center justify-center h-full gap-3">
-        <div className="flex flex-col items-center mt-auto">
+        <div className="flex flex-col md:flex-row justify-between items-center mt-auto w-full">
           <h1 className="text-5xl font-bold text-white">Smarten <span className="text-[#ffdc15]">Me</span></h1>
-          <p className="text-base text-white">Make your emails sound professional!</p>
+          <p className="text-lg text-white">Sound professional, without the effort.</p>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full">
           {outputSentence ?
             <div className="relative">
-              <ReactMarkdown className="w-96 h-96 min-h-20 p-4 rounded-md bg-[#2B2F3F] text-white outline-none" children={outputSentence} />
+              <ReactMarkdown className="w-full h-96 min-h-20 p-4 rounded-md bg-[#2B2F3F] text-white outline-none" children={outputSentence} />
               <div className="flex justify-between">
                 <button className="absolute bottom-4 left-4 text-white hover:text-[#ffdc15]" onClick={() => setOutputSentence("")}>Edit</button>
                 <button className="absolute bottom-4 right-4 text-white hover:text-[#ffdc15]" onClick={() => copyToClipboard(outputSentence)}>Copy</button>
               </div>
             </div>
             :
-            <textarea className="w-96 h-96 min-h-20 p-4 rounded-md bg-[#2B2F3F] text-white outline-none" placeholder="Enter your email here..." onChange={(e) => setInputSentence(e.target.value)}></textarea>}
-          <button className="w-96 h-16 mt-4 rounded-md bg-[#ffdc15] text-[#2B2F3F] font-bold text-lg" onClick={() => handleWordReplacement(inputSentence)}>Smart it</button>
+            <textarea className="w-full h-96 min-h-20 p-4 rounded-md bg-[#2B2F3F] text-white outline-none" placeholder="Enter your email here..." onChange={(e) => setInputSentence(e.target.value)}></textarea>}
+          <button className="w-full h-16 mt-4 rounded-md bg-[#ffdc15] text-[#2B2F3F] font-bold text-lg" onClick={() => handleWordReplacement(inputSentence)}>Smart it</button>
           {error && <p className="text-red-500">{error.message}</p>}
         </div>
         <div className="mt-auto mb-3">
