@@ -1,0 +1,31 @@
+{
+  "name": "smartenme",
+  "version": "1.0.0",
+  "description": "Smartenme Server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev" : "nodemon server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/renatoka/SmartenMe.git"
+  },
+  "keywords": [
+    "SmartenMe",
+    "Email",
+    "Formatting",
+    "Tool"
+  ],
+  "author": "Renato Kauric",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/renatoka/SmartenMe/issues"
+  },
+  "homepage": "https://github.com/renatoka/SmartenMe#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20"
+  }
+}
