@@ -16,7 +16,6 @@ const configuration = new Configuration({
 
 app.post('/post', (req, res) => {
     const openai = new OpenAIApi(configuration);
-    console.log(req.body.sentence);
     const response = openai.createCompletion({
         model: "text-davinci-003",
         prompt: `Make this email formal: ${req.body.sentence}`,
@@ -27,9 +26,9 @@ app.post('/post', (req, res) => {
         presence_penalty: 0,
     });
     response.then((data) => {
-        res.send(data['data']['choices'][0]['text']);
+        res.send(data.data.choices[0].text)
     }).catch((error) => {
-        console.log(error);
+        console.log("Error in API call", error);
     });
 });
 
