@@ -1,4 +1,4 @@
-# SmartenMe 
+# SmartenMe
 ## Making your life easier with OpenAI
 
 SmartenMe is an OpenAI based web application that helps you to make your poorly written emails sound more professional. It provides you with an interactive platform where you can easily write and revise your emails and make sure that your emails sound professional and well-crafted.
