@@ -1,4 +1,3 @@
-import { Configuration, OpenAIApi } from "openai";
 import { useState } from "react";
 import ReactMarkdown from 'react-markdown';
 import AlertPopup from "../assets/components/AlertPopup";
