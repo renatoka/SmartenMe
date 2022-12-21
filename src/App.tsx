@@ -1,12 +1,12 @@
 import { Configuration, OpenAIApi } from "openai";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ReactMarkdown from 'react-markdown';
 import AlertPopup from './assets/components/AlertPopup';
 
 function App() {
 
   const configuration = new Configuration({
-    apiKey: import.meta.env.VITE_REACT_API_KEY as string,
+    apiKey: import.meta.env.VITE_API_KEY as string,
   });
   const openai = new OpenAIApi(configuration);
 
