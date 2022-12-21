@@ -8,7 +8,7 @@ const Main = () => {
   const [outputSentence, setOutputSentence] = useState("");
   const [popupType, setPopupType] = useState<Error | string>("");
 
-  const x = 1;
+  const x = 125;
 
   const copyToClipboard = (email: string) => {
     navigator.clipboard.writeText(email).then(() => {
@@ -50,10 +50,9 @@ const Main = () => {
         <div className="flex flex-col w-full">
           {outputSentence ? (
             <div className="relative">
-              <ReactMarkdown
-                className="w-full h-96 min-h-20 p-4 rounded-md bg-[#2B2F3F] text-white outline-none"
-                children={outputSentence}
-              />
+              <ReactMarkdown className="w-full h-96 min-h-20 p-4 rounded-md bg-[#2B2F3F] text-white outline-none">
+                {outputSentence}
+              </ReactMarkdown>
               <div className="flex justify-between">
                 <button
                   className="absolute bottom-4 left-4 text-white hover:text-[#ffdc15]"
@@ -97,6 +96,7 @@ const Main = () => {
             <a
               href="https://github.com/renatoka/SmartenMe"
               target={"_blank"}
+              rel="noreferrer"
               className="text-[#ffdc15]"
             >
               {"@renatoka"}
