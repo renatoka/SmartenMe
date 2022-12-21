@@ -8,8 +8,6 @@ const Main = () => {
   const [outputSentence, setOutputSentence] = useState("");
   const [popupType, setPopupType] = useState<Error | string>("");
 
-  const x = 125;
-
   const copyToClipboard = (email: string) => {
     navigator.clipboard.writeText(email).then(() => {
       setPopupType("success");
