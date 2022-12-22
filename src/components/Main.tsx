@@ -1,11 +1,12 @@
-import { useState } from "react";
-import ReactMarkdown from "react-markdown";
-import AlertPopup from "./AlertPopup";
 import axios from "axios";
+import { useState } from "react";
+import AlertPopup from "./AlertPopup";
+import TextArea from "./TextArea";
 
 const Main = () => {
   const [inputSentence, setInputSentence] = useState("");
   const [outputSentence, setOutputSentence] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [popupType, setPopupType] = useState<Error | string>("");
 
   const copyToClipboard = (email: string) => {
@@ -14,15 +15,17 @@ const Main = () => {
     });
   };
 
-  const smartenEmail = (event: any) => {
+  const smartenEmail = (event: MouseEvent) => {
     event.preventDefault();
     if (!inputSentence) {
-      return setPopupType("no-input");
+      setPopupType("no-input");
     } else {
+      setIsLoading(true);
       axios
         .post("http://localhost:3000/post", { sentence: inputSentence })
         .then((response) => {
           setOutputSentence(response.data);
+          setIsLoading(false);
         })
         .catch((error) => {
           console.log(error);
@@ -46,47 +49,15 @@ const Main = () => {
           </p>
         </div>
         <div className="flex flex-col w-full">
-          {outputSentence ? (
-            <div className="relative">
-              <ReactMarkdown className="w-full h-96 min-h-20 p-4 rounded-md bg-[#2B2F3F] text-white outline-none">
-                {outputSentence}
-              </ReactMarkdown>
-              <div className="flex justify-between">
-                <button
-                  className="absolute bottom-4 left-4 text-white hover:text-[#ffdc15]"
-                  onClick={() => setOutputSentence("")}
-                >
-                  Reset
-                </button>
-                <button
-                  className="absolute bottom-4 right-4 text-white hover:text-[#ffdc15]"
-                  onClick={() => copyToClipboard(outputSentence)}
-                >
-                  Copy
-                </button>
-              </div>
-            </div>
-          ) : (
-            <form
-              className="flex flex-col w-full"
-              method="POST"
-              name="smarten-me"
-              data-netlify="true"
-              data-netlify-honeypot="bot-field"
-            >
-              <textarea
-                className="w-full h-96 min-h-20 p-4 rounded-md bg-[#2B2F3F] text-white outline-none"
-                placeholder="Enter your email here..."
-                onChange={(e) => setInputSentence(e.target.value)}
-              ></textarea>
-              <button
-                className="w-full h-16 mt-4 rounded-md bg-[#ffdc15] text-[#2B2F3F] font-bold text-lg active:bg-[#dabc12]"
-                onClick={smartenEmail}
-              >
-                Smart it
-              </button>
-            </form>
-          )}
+          {/* TextArea component that does all the work */}
+          <TextArea
+            isLoading={isLoading}
+            setInputSentence={setInputSentence}
+            outputSentence={outputSentence}
+            setOutputSentence={setOutputSentence}
+            smartenEmail={smartenEmail}
+            copyToClipboard={copyToClipboard}
+          />
         </div>
         <div className="mt-auto">
           <p className="text-base text-white">
