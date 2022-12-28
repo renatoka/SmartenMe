@@ -22,7 +22,9 @@ const Main = () => {
     } else {
       setIsLoading(true);
       axios
-        .post("http://localhost:3000/post", { sentence: inputSentence })
+        .post("https://smartenme.onrender.com/post", {
+          sentence: inputSentence,
+        })
         .then((response) => {
           setOutputSentence(response.data);
           setIsLoading(false);
